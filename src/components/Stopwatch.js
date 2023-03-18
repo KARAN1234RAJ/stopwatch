@@ -74,16 +74,7 @@ const Stopwatch = () => {
         <button className="reset" onClick={reSet}>
           Reset
         </button>
-        <button
-          onClick={() => {
-            artists.push({
-              id: nextId++,
-              splitTime: splitTime,
-            });
-          }}
-        >
-          Add
-        </button>
+       
       </section>
       {/* <ol>{splitTime}</ol> */}
       <ol>
