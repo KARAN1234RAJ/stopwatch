@@ -13,7 +13,7 @@ const Stopwatch = () => {
   useEffect(() => {
     let timeInterval;
     if (isTimeInc) {
-      timeInterval = setInterval(() => setTime(time + 1), 100);
+      timeInterval = setInterval(() => setTime(time + 1), 10);
     }
     return () => clearInterval(timeInterval);
   }, [isTimeInc, time]);
@@ -64,7 +64,7 @@ const Stopwatch = () => {
       <section>
         <p>Split Time </p>
         <button className="restart" onClick={reStart}>
-         {isTimeInc ?"PAUSE":"Restart"}
+          {isTimeInc ? "PAUSE" : "Restart"}
         </button>
         <button className="split" onClick={timeSplit}>
           Split
@@ -73,14 +73,13 @@ const Stopwatch = () => {
           Reset
         </button>
       </section>
-      {/* <ol>{splitTime}</ol> */}
 
       {artists.map((artist) => (
-        <ol key={artist.id}>
-          <li>{artist.id}</li>
-          <li>{artist.splitTime} </li>
-          <li>{artist.status}</li>
-        </ol>
+        <div key={artist.id} className="list">
+          <div> {artist.id}</div>
+          <div> {artist.splitTime} </div>
+          <div>{artist.status}</div>
+        </div>
       ))}
     </div>
   );
