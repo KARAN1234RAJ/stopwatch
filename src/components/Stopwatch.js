@@ -8,33 +8,31 @@ const Stopwatch = () => {
   const [artists, setArtists] = useState([]);
   const [status, setStatus] = useState();
 
-
   let nextId = 0;
-
-  const hours = Math.floor(time / 360000);
-  const minutes = Math.floor((time % 360000) / 6000);
-  const seconds = Math.floor((time % 6000) / 100);
-  const milliseconds = time / 100;
 
   useEffect(() => {
     let timeInterval;
     if (isTimeInc) {
-      timeInterval = setInterval(() => setTime(time + 1), 10);
+      timeInterval = setInterval(() => setTime(time + 1), 100);
     }
     return () => clearInterval(timeInterval);
   }, [isTimeInc, time]);
 
-  const splitList =()=>{
-    artists.push({
-        id: artists.length,
-        splitTime: splitTime,
-        status:status
-      });
+  const hours = Math.floor(time / 360000);
+  const minutes = Math.floor((time % 360000) / 6000);
+  const seconds = Math.floor((time % 6000) / 100);
+  const milliseconds = time % 100;
 
-  }
+  const splitList = () => {
+    artists.push({
+      id: artists.length,
+      splitTime: splitTime,
+      status: status,
+    });
+  };
 
   const reStart = () => {
-    console.log("restart Called", artists.length,nextId);
+    console.log("restart Called", artists.length, nextId);
     setIsTimeInc(!isTimeInc);
     setStatus(isTimeInc ? "Pause" : "");
     setSplitTime(time);
@@ -45,7 +43,7 @@ const Stopwatch = () => {
     setTime(0);
   };
   const timeSplit = () => {
-    console.log("split time", artists , nextId);
+    console.log("split time", artists, nextId);
     setSplitTime(time);
     setStatus("Split");
     splitList();
@@ -66,7 +64,7 @@ const Stopwatch = () => {
       <section>
         <p>Split Time </p>
         <button className="restart" onClick={reStart}>
-          Restart
+         {isTimeInc ?"PAUSE":"Restart"}
         </button>
         <button className="split" onClick={timeSplit}>
           Split
@@ -74,18 +72,16 @@ const Stopwatch = () => {
         <button className="reset" onClick={reSet}>
           Reset
         </button>
-       
       </section>
       {/* <ol>{splitTime}</ol> */}
-      <ol>
-      {artists.map(artist => (
-          <li key={artist.id}>{artist.id}{artist.splitTime} {artist.status}</li>
-        ))}
-      </ol>
-      
-       
-     
-     
+
+      {artists.map((artist) => (
+        <ol key={artist.id}>
+          <li>{artist.id}</li>
+          <li>{artist.splitTime} </li>
+          <li>{artist.status}</li>
+        </ol>
+      ))}
     </div>
   );
 };
